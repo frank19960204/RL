@@ -5,7 +5,7 @@ from Brain import QLearningTable
 
 def update():
     player = "red"
-    for episode in range(100):
+    while redwin/episode < 0.75:
         player = "red"
         # initial observation
         observation_1 = env.reset()
@@ -25,8 +25,10 @@ def update():
                 if(keep_state):
                 # RL learn from this transition (punish for placing at unable space)
                     RL.learn(observation_1, action_red, reward_red, observation_2, "red")
+                    if reward_red == 1:
+                        redwin += 1
                 if done:
-                    print("even")
+                
                     break
     
               
@@ -51,20 +53,23 @@ def update():
                     observation_1 = observation_3
                   
                 if done:
-                    print("even")
+        
                     break
                     
             # break while loop when end of this episode
             if done:
                 break
             env.render()
+        episode += 1
+        print("win rate: ",redwin/episode+1)
         print("round:",episode+1,"end---------------------------------")
     # end of game
     print('game over')
     env.destroy()
 
 if __name__ == "__main__":
-    
+    redwin = 0
+    episode = 0
     env = Maze()
     RL = QLearningTable(actions=list(range(env.n_actions)))
 
