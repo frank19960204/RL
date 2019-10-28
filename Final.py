@@ -13,7 +13,7 @@ def update():
         
         while True:
             # fresh env
-            env.render()
+            
             keep_state = True
             while keep_state:
                 # RL choose action based on observation
@@ -34,6 +34,7 @@ def update():
                 RL.learn(observation_1, action_red, reward_red, observation_2, "red")
                 break
             keep_state = True
+            env.render()
             while keep_state:
                 # RL choose action based on observation
                 action_yellow = RL.choose_action(observation_2, player)
@@ -56,6 +57,7 @@ def update():
             # break while loop when end of this episode
             if done:
                 break
+            env.render()
         print("round:",episode+1,"end---------------------------------")
     # end of game
     print('game over')
