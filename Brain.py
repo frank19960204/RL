@@ -43,6 +43,8 @@ class QLearningTable:
                 q_target = r  # next state is terminal
             self.q_table_red.loc[s, a] += self.lr * (q_target - q_predict)  # update
             print("red\n",self.q_table_red)
+            fo = open("q_table_red.txt","w")
+            fo.write(self.q_table_red.to_string())
         if(player == "yellow"):
             q_predict = self.q_table_yellow.loc[s, a]
              
